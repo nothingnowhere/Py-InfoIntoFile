@@ -1,0 +1,145 @@
+def removing_contact_address(address) :
+	contact_file = open("contacts.txt", "a+")
+	file_container = contact_file.readlines()
+	contact_file.close()
+
+	contact_file = open("contacts.txt", "w+")
+	for i in file_container :
+		if i != "Contact address: %s\n" % (address) :
+			contact_file.write(i)
+
+	print "(-) %s removed successfully." % (address)
+	contact_file.close()
+	remove_contact()
+
+def removing_contact_email(email) :
+	contact_file = open("contacts.txt", "a+")
+	file_container = contact_file.readlines()
+	contact_file.close()
+
+	contact_file = open("contacts.txt", "w+")
+	for i in file_container :
+		if i != "Contact email: %s\n" % (email) :
+			contact_file.write(i)
+
+	print "(-) %s removed successfully." % (email)
+	contact_file.close()
+	remove_contact()
+
+def removing_contact_phone(phone) :
+	contact_file = open("contacts.txt", "a+")
+	file_container = contact_file.readlines()
+	contact_file.close()
+
+	contact_file = open("contacts.txt", "w+")
+	for i in file_container :
+		if i != "Contact phone: %s\n" % (phone) :
+			contact_file.write(i)
+
+	print "(-) %s removed successfully." % (phone)
+	contact_file.close()
+	remove_contact()
+
+def removing_contact_name(name) :
+	contact_file = open("contacts.txt", "a+")
+	file_container = contact_file.readlines()
+	contact_file.close()
+
+	contact_file = open("contacts.txt", "w+")
+	for i in file_container :
+		if i != "Contact name: %s\n" % (name) :
+			contact_file.write(i)
+
+	print "(-) %s removed successfully." % (name)
+	contact_file.close()
+	remove_contact()
+
+def remove_contact() :
+	contact_file = open("contacts.txt", "r")
+	file_container = contact_file.readlines()
+	contact_file.close()
+	#debug print "File contacter = %s" % (file_container)
+	print "\nWhat is the name, phone number, email, or address you'd like to remove? (Spelling/punctuation must be exact.)"
+	print "(Type 'add' if you want to add a new contact.)"
+	contact_removal = raw_input(">> ")
+	if contact_removal.lower() == "add" :
+		main()
+
+	for i in file_container :
+		if i == "Contact name: %s\n" % (contact_removal) :
+			print "\nFound %s." % (contact_removal)
+			removing_contact_name(contact_removal)
+		elif i == "Contact phone: %s\n" % (contact_removal) :
+			print "\nFound %s." % (contact_removal)
+			removing_contact_phone(contact_removal)
+		elif i == "Contact email: %s\n" % (contact_removal) :
+			print "\nFound %s." % (contact_removal)
+			removing_contact_email(contact_removal)
+		elif i == "Contact address: %s\n" % (contact_removal) :
+			print "\nFound %s." % (contact_removal)
+			removing_contact_address(contact_removal)
+		else :
+			pass
+
+	print "(!) %s was not found." % (contact_removal)
+	remove_contact()
+
+def add_contact() :
+	contact_file = open("contacts.txt", "a+")
+
+	print "\nWhat is the contact's name? (Optional)"
+	contact_name = raw_input(">> ")
+	if contact_name.lower() == "" :
+		#debug print "Contact name is %s." % (contact_name)
+		print "( ) You decided to leave the name field blank."
+	else :
+		contact_file.write("Contact name: %s\n" % (contact_name))
+		#debug print "Contact name is %s" % (contact_name)
+		print "(+) You've added %s." % (contact_name)
+
+	print "\nWhat is the contact's phone number? (Optional)"
+	contact_phone = raw_input(">> ")
+	if contact_phone == "" :
+		print "( ) You decided to leave the phone number field blank."
+	else :
+		contact_file.write("Contact phone: %s\n" % (contact_phone))
+		print "(+) You've added %s." % (contact_phone)
+
+	print "\nWhat is the contact's email? (Optional)"
+	contact_email = raw_input(">> ")
+	if contact_email == "" :
+		print "( ) You decided to leave the email field blank."
+	else :
+		contact_file.write("Contact email: %s\n" % (contact_email))
+		print "(+) You've added %s." % (contact_email)
+
+	print "\nWhat is the contact's address? (Optional)"
+	contact_address = raw_input(">> ")
+	if contact_address == "" :
+		print "( ) You decided to leave the address field blank."
+	else :
+		contact_file.write("Contact address: %s\n" % (contact_address))
+		print "(+) You've added %s." % (contact_address)
+
+	contact_file.write("\n")
+	contact_file.close()
+	main()
+	
+
+def main() :
+	print "\nWould you like to add a contact? Y/N"
+	user_add = raw_input(">> ")
+	if user_add.lower() == "yes" or user_add.lower() == "y" :
+		add_contact()
+	else :
+		print "\nWould you like to remove information from an existing contact? Y/N"
+		user_remove = raw_input(">> ")
+		if user_remove.lower() == "yes" or user_remove.lower() == "y" :
+			remove_contact()
+		else :
+			print "\nYour list of contacts is:"
+			contact_file = open("contacts.txt", "r")
+			print contact_file.read()
+			contact_file.close()
+
+main()
